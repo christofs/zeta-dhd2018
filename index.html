@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- CUSTOMIZE THIS! -->
-<title>pyzeta</title>
+<title>Burrows' Zeta -- DHd2018</title>
 <meta name="author" content="Christof Schöch">
 <!-- END -->
 <meta name="description" content="Slides">
@@ -36,116 +36,83 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <!-- THIS IS WHERE THE CONTENT GOES! -->
 <!-- Any section element inside of this container is displayed as a slide -->
 
-# Understanding Zeta, a Measure of Distinctiveness
+# Burrows Zeta:<br/>Varianten und Evaluation
 <br/>
 <hr/>
 <br/>
-Christof Schöch, Daniel Schlör, Albin Zehe,<br/>José Calvo, Henning Gehard, Andreas Hotho
+Christof Schöch (Trier), Daniel Schlör,<br/>Albin Zehe, Andreas Hotho (Würzburg)
 <br/>
 <br/>
-**DARIAH TDA-Workshop, Würzburg, Nov. 2017**
+**Jahrestagung des DHd-Verbands, Köln, 2018**
 <br/>
 <br/>
 <hr/>
 <br/>
-<img height="50" data-src="img/basics/UWUE.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/CLiGS.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/BMBF.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/uni-trier.png"></img>
+<img height="50" data-src="img/basics/UWUE.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/CLiGS.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/BMBF.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="40" data-src="img/basics/uni-trier.png"></img>
 
 
 ---
-# Overview
+# Überblick
 <br/>
-1. [Measures of Distinctiveness](#/2)
-2. [Zeta: Calculation and Properties](#/3)
-3. [Implementation and Application](#/4)
-4. [Extensions to Zeta](#/5)
-
+1. [Was sind Distinktivitätsmaße?](#/2)
+2. [Was ist Zeta?](#/3)
+3. [Varianten von Zeta](#/4)
+4. [Evaluation der Varianten](#/5)
+5. [Fazit](#/6)
 
 
 ---
-# 1. Measures of Distinctiveness
+# 1. Was sind Distinktivitätsmaße?
 
 --
-<img height="600" data-src="img/Rote_Bierkästen_Kronenbrauerei_Laupheim.jpg"></img>
+## Ausgangslage
+<br/>
+* Vergleichende, kontrastierende Analyse von Texten
+* Maße der Distinktivität von Merkmalen ("keyness")
+* Standard-Tools, die sie implementieren: Antconc, WordCruncher, TXM, stylo, etc.
 
 --
-## Fundamental technique: comparison
+## Was macht ein Merkmal distinktiv?
 <br/>
-* Similar level of abstraction <!-- .element: class="fragment" data-fragment-index="1" -->
-    * Works by two authors: e.g., Shakespeare vs. Marlowe
-    * Works in two genres: e.g., crime fiction vs. historical novel
-    * Works from two periods: e.g., Classicism vs. Romanticism<br/><br/>
-* Different levels of abstraction <!-- .element: class="fragment" data-fragment-index="2" -->
-    * One novel vs. all other novels by a given author
-    * Tragedies vs. all other subgenres of drama
-    * One author's work vs. a large reference corpus
-
-
---
-## Goal: find distinctive features
-<br/>
-* What makes a feature distinctive? <!-- .element: class="fragment" data-fragment-index="1" -->
-    * Not frequency,
-    * but unusual frequency<br/><br/>
-* Measures of distinctiveness <!-- .element: class="fragment" data-fragment-index="2" -->
-    * Many different measures of distinctiveness
-    * Common aim: quantify the extent of difference; identify distinctive words
-
---
-## Naive Baseline:<br/>ratio of relative frequencies (rrf)
-<br/>
-**rrf<sub>i</sub> = rf<sub>i</sub>(T) / rf<sub>i</sub>(C)**
-<br/>
-<br/>
-* T = Target partition
-* C = Comparison partition
-* rf<sub>i</sub> = relative frequency of feature i
-
---
-## Sample output: tragedy vs. comedy
-<br/>
-* Tragedy <!-- .element: class="fragment" data-fragment-index="1" -->
-    * pyrrhus, parricide, sénat, sylla, tibère, <br/>tullie, tarquin, tamerlan, tancrède, thésée<br/><br/>
-* Comedy <!-- .element: class="fragment" data-fragment-index="2" -->
-    * marquis, galant, coquin, diable, joli, <br/>ça|cela, angélique, carrosse, damis, tante
-
---
-## Weaknesses of the rrf
-<br/>
-* Looks at the entire partition as one entity <!-- .element: class="fragment" data-fragment-index="1" -->
-* Does not consider distribution of values <br/>(e.g., spread around mean) <!-- .element: class="fragment" data-fragment-index="2" -->
-* You cannot perform a significance test <!-- .element: class="fragment" data-fragment-index="3" -->
-* Overemphasizes words which are very rare in one partition <!-- .element: class="fragment" data-fragment-index="4" -->
+* nicht nur absolute große Häufigkeit, <br/>sondern im Vergleich unerwartet große Häufigkeit<br/>(vgl. Funktionswörter)
+* nicht nur in kleinem Teil einer Textsammlung häufig, <br/>sondern
+konsistent häufige Verwendung<br/>(vgl. Figurennamen)
 
 
 --
-## Alternative: chi-square / log-likelihood
+## Die Basismethode: rrf
 <br/>
-* Based on a contingency table <!-- .element: class="fragment" data-fragment-index="1" -->
-* Compares an expected value with an observed value <!-- .element: class="fragment" data-fragment-index="2" -->
-* Allows to perform a significance test <!-- .element: class="fragment" data-fragment-index="3" -->
-* But: does not take distribution into account <!-- .element: class="fragment" data-fragment-index="4" -->
+rrf = Verhältnis der relativen Häufigkeiten
+<br/><br/>
+**rrf<sub>i</sub>&nbsp;&nbsp;=&nbsp;&nbsp;rf<sub>i</sub>(Z)&nbsp;&nbsp;/&nbsp;&nbsp;rf<sub>i</sub>(V)**
+<br/>
+<br/>
+* rf<sub>i</sub> = relative Häufigkeit von Merkmal *i*
+* Z = Zielpartition
+* C = Vergleichspartition
 
 
 --
-## Alternative: t-Test
+## Schwächen des rrf
 <br/>
-* Takes distribution into account <br/>(mean, standard deviation, sample size) <!-- .element: class="fragment" data-fragment-index="1" -->
-* Allows to perform a significance test for the difference <!-- .element: class="fragment" data-fragment-index="2" -->
-* But: assumes normal distribution <!-- .element: class="fragment" data-fragment-index="3" -->
+* Sieht jede Partition als Einheit <!-- .element: class="fragment" data-fragment-index="1" -->
+* Zieht Verteilungseigenschaften nicht in Betracht <!-- .element: class="fragment" data-fragment-index="2" -->
+* Überbetont Merkmale, die in einer Partition sehr selten sind<!-- .element: class="fragment" data-fragment-index="3" -->
+* Erlaubt keinen Signifikanztest o.ä. <!-- .element: class="fragment" data-fragment-index="4" -->
 
+ 
 
 --
-## Empirical evaluation
+## Gruppen von Distinktivitätsmaßen
 <br/>
-<a href="img/testing-matilda_Lijffijt.png"><img height="300" src="img/testing-matilda_Lijffijt.png"></img></a>
-* Lijffit et al. 2014 using BNC
-* "Matilda" in male/female authors
-* Challenge: "spiky" distribution
-
+1. Erwartete vs. beobachtete Werte (bspw. log-likelihood-ratio)
+2. Gewichtung der Häufigkeiten (bspw. tf-idf)
+3. Hypothesentests zum Vergleich von Verteilungen<br/>(bspw. Welch’s t-Test, Wilcoxon-Test)
+4. Dispersionsmaße (bspw. deviation of proportions)
 
 
 ---
-# 2. Zeta: Calculation and properties
+# 2. Was ist Zeta?
 
 
 --
