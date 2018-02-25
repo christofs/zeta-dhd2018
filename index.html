@@ -56,9 +56,8 @@ Christof Schöch (Trier), Daniel Schlör,<br/>Albin Zehe, Andreas Hotho (Würzbu
 <br/>
 1. [Was sind Distinktivitätsmaße?](#/2)
 2. [Was ist Zeta?](#/3)
-3. [Varianten von Zeta](#/4)
-4. [Evaluation der Varianten](#/5)
-5. [Fazit](#/6)
+3. [Varianten und Evaluation](#/4)
+5. [Fazit](#/5)
 
 
 ---
@@ -67,16 +66,16 @@ Christof Schöch (Trier), Daniel Schlör,<br/>Albin Zehe, Andreas Hotho (Würzbu
 --
 ## Ausgangslage
 <br/>
-* Vergleichende, kontrastierende Analyse von Texten
-* Maße der Distinktivität von Merkmalen ("keyness")
-* Standard-Tools, die sie implementieren: Antconc, WordCruncher, TXM, stylo, etc.
+* Omnipräsenz der vergleichenden, kontrastierenden Analyse von Texten <!-- .element: class="fragment" data-fragment-index="1" --> 
+* Maße der Distinktivität von Merkmalen ("keyness") <!-- .element: class="fragment" data-fragment-index="2" -->
+* Standard-Tools, die sie implementieren: Antconc, WordCruncher, TXM, stylo, etc. <!-- .element: class="fragment" data-fragment-index="3" -->
 
 --
 ## Was macht ein Merkmal distinktiv?
 <br/>
-* nicht nur absolute große Häufigkeit, <br/>sondern im Vergleich unerwartet große Häufigkeit<br/>(vgl. Funktionswörter)
+* nicht nur absolute große Häufigkeit, <br/>sondern im Vergleich unerwartet große Häufigkeit<br/>(vgl. Funktionswörter) <!-- .element: class="fragment" data-fragment-index="1" -->
 * nicht nur in kleinem Teil einer Textsammlung häufig, <br/>sondern
-konsistent häufige Verwendung<br/>(vgl. Figurennamen)
+konsistent häufige Verwendung<br/>(vgl. Figurennamen) <!-- .element: class="fragment" data-fragment-index="2" -->
 
 
 --
@@ -105,10 +104,10 @@ rrf = Verhältnis der relativen Häufigkeiten
 --
 ## Gruppen von Distinktivitätsmaßen
 <br/>
-1. Erwartete vs. beobachtete Werte (bspw. log-likelihood-ratio)
-2. Gewichtung der Häufigkeiten (bspw. tf-idf)
-3. Hypothesentests zum Vergleich von Verteilungen<br/>(bspw. Welch’s t-Test, Wilcoxon-Test)
-4. Dispersionsmaße (bspw. deviation of proportions)
+1. Erwartete vs. beobachtete Werte (bspw. log-likelihood-ratio) <!-- .element: class="fragment" data-fragment-index="1" -->
+2. Gewichtung der Häufigkeiten (bspw. tf-idf) <!-- .element: class="fragment" data-fragment-index="2" -->
+3. Hypothesentests zum Vergleich von Verteilungen<br/>(bspw. Welch’s t-Test, Wilcoxon-Test) <!-- .element: class="fragment" data-fragment-index="3" -->
+4. Dispersionsmaße (bspw. deviation of proportions) <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
 ---
@@ -165,7 +164,7 @@ sf = Segment-Häufigkeiten
 
 
 ---
-# 3. Varianten von Zeta
+# 3. Varianten und Evaluation
 
 --
 ## Varianten von Zeta
@@ -190,10 +189,6 @@ sf = Segment-Häufigkeiten
 <img height="500" src="img/variants-dendrogram.png"></img>
 <br/>
 <small>Grundlage: Cluster Analyse der Zeta-Werte (500 Wörter, Ward-Verfahren)</small>
-
-
----
-# 4. Evaluation der Varianten
 
 
 --
