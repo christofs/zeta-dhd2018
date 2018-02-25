@@ -83,7 +83,7 @@ konsistent häufige Verwendung<br/>(vgl. Figurennamen) <!-- .element: class="fra
 <br/>
 rrf = Verhältnis der relativen Häufigkeiten
 <br/><br/>
-**rrf<sub>i</sub>&nbsp;&nbsp;=&nbsp;&nbsp;rf<sub>i</sub>(Z)&nbsp;&nbsp;/&nbsp;&nbsp;rf<sub>i</sub>(V)**
+***rrf<sub>i</sub>&nbsp;&nbsp;=&nbsp;&nbsp;rf<sub>i</sub>(Z)&nbsp;&nbsp;/&nbsp;&nbsp;rf<sub>i</sub>(V)***
 <br/>
 <br/>
 * rf<sub>i</sub> = relative Häufigkeit von Merkmal *i*
@@ -115,28 +115,27 @@ rrf = Verhältnis der relativen Häufigkeiten
 --
 ## Zeta: Grundlage
 <br/>
-sf = Segment-Häufigkeiten 
+df = Dokument-Häufigkeiten 
 <br/><br/>
-**sf<sub>i</sub>(Z) sowie sf<sub>i</sub>(V)**
+***df<sub>i</sub>(Z)*** sowie ***df<sub>i</sub>(V)***
 <br/>
 <br/>
 * Z = Zielpartition, V = Vergleichspartition
-* Jeder Text wird in Segmente gleicher Länge geteilt
-* sf = Anzahl der Segmente, in denen Merkmal *i* vorkommt
+* Jeder Text wird in Dokumente (Segmente) gleicher Länge geteilt
+* df = Anzahl der Dokumente, in denen Merkmal *i* vorkommt
 
 --
 ## Zeta: Berechnung
 <br/>
-**sp<sub>i</sub>(Z) = sf<sub>i</sub>(Z) / n(Z)**
+***dp<sub>i</sub>(Z) = df<sub>i</sub>(Z) / n(Z)***
 <br/>
 <br/>
-**Zeta<sub>i</sub> = sp<sub>i</sub>(Z) - sp<sub>i</sub>(V)**
+***Zeta<sub>i</sub> = dp<sub>i</sub>(Z) - dp<sub>i</sub>(V)***
 <br/>
 <br/>
-* sp<sub>i</sub> = Anteil der Segmente aller Segmente einer Partition,<br/>in denen Merkmal *i* vorkommt
+* dp<sub>i</sub> = Anteil der Dokumente einer Partition,<br/>in denen Merkmal *i* vorkommt
 * Zeta: Subtraktion der Anteile in Z und V
 * Berechnung für jedes Wort, absteigende Sortierung
-
 
 
 --
@@ -150,14 +149,13 @@ sf = Segment-Häufigkeiten
 --
 ## Zeta: Eigenschaften
 <br/>
-* Zeta liegt zwischen -1 und +1 <br/>(feste theoretische Spanne) <!-- .element: class="fragment" data-fragment-index="1" -->
-* Kein inhärenter Schwellenwert der Distinktivität <!-- .element: class="fragment" data-fragment-index="2" -->
-* Kein inhärenter Signifikanztest <!-- .element: class="fragment" data-fragment-index="3" -->
-* Zeta-Wert begrenzt durch höhere Segment-Proportion <!-- .element: class="fragment" data-fragment-index="4" -->
+* Zeta liegt zwischen -1 und +1 (feste theoretische Spanne) <!-- .element: class="fragment" data-fragment-index="1" -->
+* Kein inhärenter Schwellenwert der Distinktivität,<br/> kein inhärenter Signifikanztest <!-- .element: class="fragment" data-fragment-index="2" -->
+* Zeta-Wert begrenzt durch höhere Dokument-Proportion <!-- .element: class="fragment" data-fragment-index="3" -->
 
 
 --
-## Segment-Proportions und Zeta
+## Document proportions und Zeta
 <p><a href="img/fig-1_docprops-und-zetascores_mit-pointer.png"><img height="500" src="img/fig-1_docprops-und-zetascores_mit-pointer.png"></img></a></p>
 <p>(Beispieldaten: Französische Komödien und Tragödien)</p>
 
@@ -168,16 +166,18 @@ sf = Segment-Häufigkeiten
 --
 ## Varianten von Zeta
 <br/>
-1. Statt document proportions: relative Häufigkeiten<!-- .element: class="fragment" data-fragment-index="1" -->
+1. Statt document-proportions: relative Häufigkeiten<!-- .element: class="fragment" data-fragment-index="1" -->
 2. Statt Subtraktion der Werte: Division <!-- .element: class="fragment" data-fragment-index="2" -->
 3. Statt unmodifizierte Werte: Logarithmus der Werte<!-- .element: class="fragment" data-fragment-index="3" -->
-
+<br/>
+<p>Motivation: Gewünschte Effekte</p>
 --
 ## Acht Varianten
 <br/>
 <img height="400" src="img/varianten-tabelle.png"></img>
 <br/>
 <p>\*sd0 = Burrows Zeta; sd2 = log2-Zeta</p>
+
 <!--
 |                 |   document  | proportions| | relative    |Häufigk.    |
 |------------ ----|:-----------:|:----------:|-|:-----------:|:----------:|
