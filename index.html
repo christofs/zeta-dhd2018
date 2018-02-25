@@ -114,268 +114,136 @@ rrf = Verhältnis der relativen Häufigkeiten
 ---
 # 2. Was ist Zeta?
 
+--
+## Zeta: Grundlage
+<br/>
+sf = Segment-Häufigkeiten 
+<br/><br/>
+**sf<sub>i</sub>(Z) sowie sf<sub>i</sub>(V)**
+<br/>
+<br/>
+* Z = Zielpartition, V = Vergleichspartition
+* Jeder Text wird in Segmente gleicher Länge geteilt
+* sf = Anzahl der Segmente, in denen Merkmal *i* vorkommt
 
 --
-## Zeta
+## Zeta: Berechnung
 <br/>
-* John Burrows 2007: proposes Zeta (follow-up to Delta) <!-- .element: class="fragment" data-fragment-index="1" -->
-* Hugh Craig 2009: slightly modified version <!-- .element: class="fragment" data-fragment-index="2" -->
-* David Hoover 2010: Excel implementation <!-- .element: class="fragment" data-fragment-index="3" -->
-* Maciej Eder 2013: R (in stylo: 'oppose()') <!-- .element: class="fragment" data-fragment-index="4" -->
-* Christof Schöch et al. 2016/17: pyzeta <!-- .element: class="fragment" data-fragment-index="5" -->
+**sp<sub>i</sub>(Z) = sf<sub>i</sub>(Z) / n(Z)**
 <br/>
 <br/>
-<p>(see [references](#/8/2))</p> <!-- .element: class="fragment" data-fragment-index="5" -->
+**Zeta<sub>i</sub> = sp<sub>i</sub>(Z) - sp<sub>i</sub>(V)**
+<br/>
+<br/>
+* sp<sub>i</sub> = Anteil der Segmente aller Segmente einer Partition,<br/>in denen Merkmal *i* vorkommt
+* Zeta: Subtraktion der Anteile in Z und V
+* Berechnung für jedes Wort, absteigende Sortierung
 
-
---
-## Zeta, 1: partitions and segmentation
-<br/>
-* T = target partition
-* C = comparison partition
-<br/>
-<br/>
-* groups of texts, based on metadata
-* each text is split into segments of equal length
-
-
---
-## Zeta, 2: segment frequencies
-<br/>
-**sf<sub>i</sub>(T) and sf<sub>i</sub>(C)**
-<br/>
-<br/>
-* sf<sub>i</sub> = number of segments in partition<br/> that contain one or more instances of word i
 
 
 --
-## Zeta, 3: segment proportions
+## Zeta: Eigenschaften
 <br/>
-**sp<sub>i</sub>(T) = sf<sub>i</sub>(T) / n(T)**
+* Beruht auf dem Vergleich des Dispersionsgrades<!-- .element: class="fragment" data-fragment-index="1" -->
+* Ungleichmäßig verteilte Merkmale (Figurennamen)<br/>bekommen keine hohe Zeta-Werte <!-- .element: class="fragment" data-fragment-index="2" -->
+* Sehr weit verbreitete Merkmale (Funktionswörter)<br/>bekommen keine hohen Zeta-Werte <!-- .element: class="fragment" data-fragment-index="3" -->
+* Bevorzugt Merkmale von mittlerer Häufigkeit<br/>(Inhaltswörter: Interpretierbarkeit) <!-- .element: class="fragment" data-fragment-index="4" -->
 
-**sp<sub>i</sub>(C) = sf<sub>i</sub>(C) / n(C)**
+--
+## Zeta: Eigenschaften
 <br/>
-<br/>
-* dp<sub>i</sub> = segment proportion, i.e. proportion <br/>of segment that contain word i
-* n = number of segments in a given partition
+* Zeta liegt zwischen -1 und +1 <br/>(feste theoretische Spanne) <!-- .element: class="fragment" data-fragment-index="1" -->
+* Kein inhärenter Schwellenwert der Distinktivität <!-- .element: class="fragment" data-fragment-index="2" -->
+* Kein inhärenter Signifikanztest <!-- .element: class="fragment" data-fragment-index="3" -->
+* Zeta-Wert begrenzt durch höhere Segment-Proportion <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
 --
-## Zeta, 4: subtraction
-<br/>
-**Zeta<sub>i</sub> = sp<sub>i</sub>(T) - sp<sub>i</sub>(C)**
-<br/>
-<br/>
-* Not a ratio, but simple subtraction!
-* Calculate this score for each word
-* Sort by descending Zeta
-
-
---
-## Zeta: properties
-<br/>
-* Based on comparing the degree of dispersion of features  <!-- .element: class="fragment" data-fragment-index="1" -->
-* Spikey words (i.e. proper names) <br/>cannot have extreme Zeta score <!-- .element: class="fragment" data-fragment-index="2" -->
-* Very widepread words (i.e. function words)<br/>cannot have extreme Zeta score <!-- .element: class="fragment" data-fragment-index="3" -->
-* Favors medium-frequency content words<br/> (highly interpretable) <!-- .element: class="fragment" data-fragment-index="4" -->
-
---
-## Zeta: properties
-<br/>
-* Zeta lies between -1 and +1 <br/>(fixed theoretical range) <!-- .element: class="fragment" data-fragment-index="1" -->
-* No inherent cutoff of distinctiveness <!-- .element: class="fragment" data-fragment-index="2" -->
-* No significance test <!-- .element: class="fragment" data-fragment-index="3" -->
-
-
---
-## Document proportions and Zeta
-<p><a href="img/typescatter_subgenre-tragedie-comedie_3000-lemmata-all-2000-0.3.svg"><img height="500" src="img/typescatter_subgenre-tragedie-comedie_3000-lemmata-all-2000-0.3.png"></img></a></p>
-<p>(Example data: French tragedies and comedies)</p>
+## Segment-Proportions und Zeta
+<p><a href="img/fig-1_docprops-und-zetascores_mit-pointer.png"><img height="500" src="img/fig-1_docprops-und-zetascores_mit-pointer.png"></img></a></p>
+<p>(Beispieldaten: Französische Komödien und Tragödien)</p>
 
 
 ---
-# 3. Implementation and application
-
-
---
-## pyzeta.py on GitHub
-<p><a href="img/pyzeta-github.png"><img height="500" src="img/pyzeta-github.png"></img></a></p>
-<p>See: <a href="https://github.com/cligs/pyzeta">github.com/cligs/pyzeta</a></p>
+# Varianten von Zeta
 
 --
-## Implemenation: basic steps
+## Varianten von Zeta
 <br/>
-1. Prepare texts: segmentation, annotation <!-- .element: class="fragment" data-fragment-index="1" -->
-2. Build groups: based on metadata  <!-- .element: class="fragment" data-fragment-index="2" -->
-3. Select features (based on POS, stoplist, etc.) <!-- .element: class="fragment" data-fragment-index="3" -->
-4. Calculate zeta for each type <!-- .element: class="fragment" data-fragment-index="4" -->
-5. Visualize results <!-- .element: class="fragment" data-fragment-index="5" -->
-
+1. Statt document proportions: relative Häufigkeiten<!-- .element: class="fragment" data-fragment-index="1" -->
+2. Statt Subtraktion der Werte: Division <!-- .element: class="fragment" data-fragment-index="2" -->
+3. Statt unmodifizierte Werte: Logarithmus der Werte<!-- .element: class="fragment" data-fragment-index="3" -->
 
 --
-## Application: Tragedies vs. comedies
-<p><a href="img/zetascores_comedie-tragedie_30-lemmata.png"><img height="500" src="img/zetascores_comedie-tragedie_30-lemmata.png"></a></p>
-<p>2x30 words with most extreme Zeta scores</p>
-
-
---
-## Tragedies and comedies by Zeta words
-<p><a href="img/worksbyzeta_subgenre-tragedie-comedie_3000-lemmata-all_100.svg"><img height="500" src="img/worksbyzeta_subgenre-tragedie-comedie_3000-lemmata-all_100.svg"></img></a></p>
-<p>Each text by percentage of tragedy and comedy words</p>
-
-
---
-## Tragedy, comedy, tragicomedy
-<p><a href="img/threeway_pca.png"><img height="500" src="img/threeway_pca.png"></img></a></p>
-<p>PCA based on frequency of 2x25 Zeta words</p>
-
-
-<!--
-## Boxplot der Verteilungen (PC1)
-<p><a href="img/pcboxplot_comedie-tragedie-tragicomedie_3000-lemmata-all-25.svg"><img height="500" src="img/pcboxplot_comedie-tragedie-tragicomedie_3000-lemmata-all-25.svg"></img></a></p>
-<p>(Beispiel: französische Theaterstücke)</p>
--->
-
-
----
-# 4. Extensions
-
---
-# (A) Confidence interval
-
---
-## Confidence interval
-<br/>
-* Problem: Zeta does not have built-in <br/>significance testing <!-- .element: class="fragment" data-fragment-index="1" -->
-* Solution: Calculate a confidence <br/>interval based on random partitions  <!-- .element: class="fragment" data-fragment-index="2" -->
-
-
---
-## Zeta scores for random partitions
-<p><a href="img/example_scoresplot_random-one-two_3000-lemmata-all-30.svg"><img height="500" src="img/example_scoresplot_random-one-two_3000-lemmata-all-30.svg"></img></a></p>
-
-
---
-## Distribution of Zeta scores
-<p><a href="img/randomdist_random-one-two_3000-lemmata-all-ft1.png"><img height="500" src="img/randomdist_random-one-two_3000-lemmata-all-ft1.png"></img></a></p>
-(for one rank, based on 50 random partitionings)
-
-
---
-## Zeta with confidence interval
-<p><a href="img/zetascores_comedie-tragedie_30-lemmata_with-CI.png"><img height="500" src="img/zetascores_comedie-tragedie_30-lemmata_with-CI.png"></img></a></p>
-
-
---
-# (B) Variants of Zeta
-
---
-## Variants of Zeta
-<br/>
-1. Use relative frequencies <br/>instead of segment proportions <!-- .element: class="fragment" data-fragment-index="1" -->
-2. Use a division instead of a subtraction <!-- .element: class="fragment" data-fragment-index="2" -->
-3. Use log-transformed values <br/>instead of non-transformed values <!-- .element: class="fragment" data-fragment-index="3" -->
-
---
-## Eight variants
+## Acht Varianten
 <br/>
 
-|                 |    document | props.     | relative    |     freqs. |
-|------------ ----|:-----------:|:----------:|:-----------:|:----------:|
-|                 |  **normal** |  **log2**  |  **normal** | **log2**   |
-| **subtraction** |    ds0      |    ds2     |    rs0      |    rs2     |
-| **division**    |    dd0      |    dd2     |    rd0      |    rd2     |
+|                 |   document  | proportions| | relative    |Häufigk.    |
+|------------ ----|:-----------:|:----------:|-|:-----------:|:----------:|
+|                 |  **normal** |  **log2**  | |  **normal** | **log2**   |
+| **Subtraktion** |    ds0      |    ds2     | |    rs0      |    rs2     |
+| **Division**    |    dd0      |    dd2     | |    rd0      |    rd2     |
 
 
 --
-## Similarity of variants
+## Ähnlichkeit der Varianten
 <img height="500" src="img/variants-dendrogram.png"></img>
 <br/>
-<small></small>
+<small>Grundlage: Cluster Analyse der Zeta-Werte (500 Wörter, Ward-Verfahren)</small>
 
---
-## Re-ranking of words (Doyle)
-<img height="400" src="img/reordered-features.png"></img>
-<br/>
-<small>sd0 (left) vs. dr0 (right)<br/>(Burrows Zeta vs. division of rel. freqs.)</small>
+
+---
+## Evaluation der Varianten
 
 
 --
-## Reranked words (Théâtre classique)
+## Effekt auf Distinktivitätswerte
 <img height="500" src="img/illustration_Zeta-vs-adjZeta_extremes.png"></img>
 <br/>
-<small>Top-reranked words for sd0 vs. sd2<br/>Words preferred by 'tragedy'</small>
+<small>Théâtre classique (Tragödie): sd0 vs. sd2</small>
 
 
 --
-## Classifier performance (Théâtre)
+## Klassifikationstask
 <br/>
 
-|                 |    document | props.     | relative    |     freqs. |
+|                 |    document | proportions| relative    |Häufigkeiten|
 |-----------------|:-----------:|:----------:|:-----------:|:----------:|
 |                 |  **normal** |  **log2**  |  **normal** | **log2**   |
 | **subtraction** |     0.81    |   0.98     |   0.48      |  0.83      |
 | **division**    |     0.79    |   0.85     |   0.75      | 0.79       |
 
 <br/>
-<small>Classify into tragedy or comedy; <br/>classifier accuracy for each variant, using a linear SVM<br/>with 40 top-ranked features, three-fold cross-validation.<br/>Sept 2017: Daniel, Albin)</small>
+<small>Klassifikationstask: Tragödie vs. Komödie;<br/>Linearer SVM-Klassifier mit 40 top-distinktiven Merkmalen,<br/> dreifache Cross-Validation; Baseline 0.49</small>
 
-
---
-# (C) Breaking news: <br/>segment length
-
---
-## Segment length
-<br/>
-* A fundamental parameter of Zeta
-* Extremes:
-    * sl = 1 token (= relative frequencies)
-    * sl = length of shortest text (dp = 1 or 0)
-
-
---
-## Zeta and segment length
-<img height="500" src="img/zeta-verteilung.png"></img>
-<br/>
-<small>Zeta scores as a function of segment length;<br/>classical boxplot on the left, whiskers include outliers on the right;<br/> Oct. 2017, Henning Gebhard</small>
-
-
---
-## Zeta and segment length
-<img height="500" src="img/zeta_by_seglen.png"></img>
-<br/>
-<small>Zeta scores as a function of segment length;<br/>overview on the left, close-up on the right;<br/> Nov. 2017, Daniel/Albin</small>
-
-
---
-## Zeta and segment length
-<img height="500" src="img/zeta_for-0-vs-log.png"></img>
-<br/>
-<small>Zeta scores as a function of segment length;<br/>normal on the left, with log2-transform on the right;<br/>Nov. 2017, Daniel/Albin</small>
 
 
 ---
-# Conclusion
+# Fazit
 
 --
-## Conclusion
+## Ergebnisse
 <br/>
-* Zeta: useful measure of distinctiveness <!-- .element: class="fragment" data-fragment-index="1" -->
-    * simple mathematically
-    * highly interpretable results
-* Extensions: small steps  <!-- .element: class="fragment" data-fragment-index="2" -->
-    * adjustable Zeta shows promise
-    * confidence interval is a dead-end
-* Ongoing work <!-- .element: class="fragment" data-fragment-index="3" -->
-    * Influence of key parameter: segment length:<br/>classification task
-* Further work <!-- .element: class="fragment" data-fragment-index="4" -->
-    * comparison with other measures
-    * question of 'ground truth' for evaluation
-    * interactive visualization (variants, parameters, results)
+* Zeta: Nützliches Distinktivitätsmaß <!-- .element: class="fragment" data-fragment-index="1" -->
+    * mathematisch sehr einfach
+    * gut interpretierbare Ergebnisse
+* Zeta-Varianten  <!-- .element: class="fragment" data-fragment-index="2" -->
+    * Varianten mit relativen Häufigkeiten<br/>führen zu keiner Verbesserung 
+    * sd2 (document proportions mit log-Skalierung)<br/>erhöht die Klassifikationsgüte deutlich
+
+--
+## Nächste Schritte
+<br/>
+* Untersuchungen zum Einfluss der Segmentlänge auf die Zeta-Werte (mit Henning Gebhard, Trier; Paper für die DH2018) <!-- .element: class="fragment" data-fragment-index="1" -->
+* Untersuchung zum Grad der Interpretierbarkeit in Abhängigkeit der Varianten (Zielkonflikt Distinktivität vs. Interpretierbarkeit?) <!-- .element: class="fragment" data-fragment-index="2" -->
+* Evaluation der Zeta-Varianten und etablierter Verfahren mit mehreren Verfahren und Textsammlungen <!-- .element: class="fragment" data-fragment-index="3" -->
 
 
 --
-## References
+## Vielen Dank!
+<br/>
+<br/>
+**Literaturhinweise**
 <small>
 
 * Burrows, John F. (2007). "All the way through: testing for authorship in different frequency strata". _Literary and Linguistic Computing_, 22(1): 27-48.
@@ -384,10 +252,8 @@ rrf = Verhältnis der relativen Häufigkeiten
 * Oakes, Michael P. _Statistics for Corpus Linguistics_. Edinburgh: Edinburgh Univ. Press, 1998.
 * Rayson, Paul, and R. Garside. “Comparing Corpora Using Frequency Profiling.” In _Proceedings of the Workshop on Comparing Corpora_, 1–6. Hong Kong: ACM, 2000.
 * Schöch, Christof. „Zeta für die kontrastive Analyse literarischer Texte. Theorie, Implementierung, Fallstudie“, in: _Quantitative Verfahren in der Literaturwissenschaft_, ed. Andrea Albrecht et al. Berlin: de Gruyter (to appear).
-* Schöch, Christof; Albin Zehe; José Calvo; Andreas Hotho. "Burrows Zeta: Erweiterungen und Evaluation". _Jahrestagung des DHd-Verbands_, February 2018. (accepted)
-* Schöch, Christof, „Genre Analysis“, in: _Digital Humanities for Literary Studies: Theories, Methods, and Practices_, ed. by James O'Sullivan. University Park: Penn State Univ. Press (to appear).
 
-<p><br/>With thanks to pygal and reveal.js</p>
+<p><br/>With special thanks to pygal and reveal.js</p>
 
 
 </small>
