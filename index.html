@@ -45,7 +45,6 @@ Christof Schöch (Trier), Daniel Schlör,<br/>Albin Zehe, José Calvo Tello, And
 <br/>
 **Jahrestagung des DHd-Verbands, Köln, 2018**
 <br/>
-<br/>
 <hr/>
 <br/>
 <img height="50" data-src="img/basics/UWUE.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/CLiGS.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="50" data-src="img/basics/BMBF.jpg"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img height="40" data-src="img/basics/uni-trier.png"></img>
@@ -77,33 +76,20 @@ Christof Schöch (Trier), Daniel Schlör,<br/>Albin Zehe, José Calvo Tello, And
 * nicht nur in kleinem Teil einer Textsammlung häufig, <br/>sondern
 konsistent häufige Verwendung<br/>(vgl. Figurennamen) <!-- .element: class="fragment" data-fragment-index="2" -->
 
-
 --
-## Die Basismethode: rrf
+## Anforderungen an Distinktivitätsmaße
 <br/>
-rrf = Verhältnis der relativen Häufigkeiten
-<br/><br/>
-**rrf<sub>i</sub>&nbsp;&nbsp;=&nbsp;&nbsp;rf<sub>i</sub>(Z)&nbsp;&nbsp;/&nbsp;&nbsp;rf<sub>i</sub>(V)**
-<br/>
-<br/>
-* rf<sub>i</sub> = relative Häufigkeit von Merkmal *i*
-* Z = Zielpartition, V = Vergleichspartition
+* Häufigkeit gegenüber Distinktivität sinnvoll abwägen (Funktionswörter) <!-- .element: class="fragment" data-fragment-index="1" -->
+* Distinktive Merkmale für die Textgruppe insgesamt (Namen) <!-- .element: class="fragment" data-fragment-index="2" -->
+* Cut-off der Distinktivität erkennbar (Signifikanztest) <!-- .element: class="fragment" data-fragment-index="3" -->
+* Interpretierbarkeit vs. Klassifikationsgüte <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
---
-## Schwächen des rrf
-<br/>
-* Sieht jede Partition als Einheit <!-- .element: class="fragment" data-fragment-index="1" -->
-* Zieht Verteilungseigenschaften nicht in Betracht <!-- .element: class="fragment" data-fragment-index="2" -->
-* Überbetont Merkmale, die in einer Partition sehr selten sind<!-- .element: class="fragment" data-fragment-index="3" -->
-* Erlaubt keinen Signifikanztest o.ä. <!-- .element: class="fragment" data-fragment-index="4" -->
-
- 
 
 --
 ## Gruppen von Distinktivitätsmaßen
 <br/>
-1. Erwartete vs. beobachtete Werte (bspw. log-likelihood-ratio) <!-- .element: class="fragment" data-fragment-index="1" -->
+1. Erwartete vs. beobachtete Werte<br/>(bspw. log-likelihood-ratio) <!-- .element: class="fragment" data-fragment-index="1" -->
 2. Gewichtung der Häufigkeiten (bspw. tf-idf) <!-- .element: class="fragment" data-fragment-index="2" -->
 3. Hypothesentests zum Vergleich von Verteilungen<br/>(bspw. Welch’s t-Test, Wilcoxon-Test) <!-- .element: class="fragment" data-fragment-index="3" -->
 4. Dispersionsmaße (bspw. deviation of proportions) <!-- .element: class="fragment" data-fragment-index="4" -->
@@ -115,20 +101,15 @@ rrf = Verhältnis der relativen Häufigkeiten
 --
 ## Zeta: Grundlage
 <br/>
-df = Dokument-Häufigkeiten 
-<br/><br/>
-**df<sub>i</sub>(Z)** sowie **df<sub>i</sub>(V)**
+**dp<sub>i</sub>(Z) = df<sub>i</sub>(Z) / n(Z)**
 <br/>
 <br/>
 * Z = Zielpartition, V = Vergleichspartition
 * Jeder Text wird in Dokumente (Segmente) gleicher Länge geteilt
-* df = Anzahl der Dokumente, in denen Merkmal *i* vorkommt
+* dp (document proportion)= Anteil der Dokumente, in denen Merkmal *i* vorkommt
 
 --
 ## Zeta: Berechnung
-<br/>
-**dp<sub>i</sub>(Z) = df<sub>i</sub>(Z) / n(Z)**
-<br/>
 <br/>
 **Zeta<sub>i</sub> = dp<sub>i</sub>(Z) - dp<sub>i</sub>(V)**
 <br/>
@@ -141,17 +122,17 @@ df = Dokument-Häufigkeiten
 --
 ## Zeta: Eigenschaften
 <br/>
-* Beruht auf dem Vergleich des Dispersionsgrades<!-- .element: class="fragment" data-fragment-index="1" -->
-* Ungleichmäßig verteilte Merkmale (Figurennamen)<br/>bekommen keine hohe Zeta-Werte <!-- .element: class="fragment" data-fragment-index="2" -->
-* Sehr weit verbreitete Merkmale (Funktionswörter)<br/>bekommen keine hohen Zeta-Werte <!-- .element: class="fragment" data-fragment-index="3" -->
-* Bevorzugt Merkmale von mittlerer Häufigkeit<br/>(Inhaltswörter: Interpretierbarkeit) <!-- .element: class="fragment" data-fragment-index="4" -->
+* Zeta liegt zwischen -1 und +1 (feste theoretische Spanne) <!-- .element: class="fragment" data-fragment-index="1" -->
+* Kein inhärenter Schwellenwert der Distinktivität,<br/> kein inhärenter Signifikanztest <!-- .element: class="fragment" data-fragment-index="2" -->
+* Zeta-Wert begrenzt durch höhere Dokument-Proportion <!-- .element: class="fragment" data-fragment-index="3" -->
 
 --
 ## Zeta: Eigenschaften
 <br/>
-* Zeta liegt zwischen -1 und +1 (feste theoretische Spanne) <!-- .element: class="fragment" data-fragment-index="1" -->
-* Kein inhärenter Schwellenwert der Distinktivität,<br/> kein inhärenter Signifikanztest <!-- .element: class="fragment" data-fragment-index="2" -->
-* Zeta-Wert begrenzt durch höhere Dokument-Proportion <!-- .element: class="fragment" data-fragment-index="3" -->
+* Beruht auf dem Vergleich des Dispersionsgrades<!-- .element: class="fragment" data-fragment-index="1" -->
+* Ungleichmäßig verteilte Merkmale (Figurennamen)<br/>bekommen keine hohe Zeta-Werte <!-- .element: class="fragment" data-fragment-index="2" -->
+* Sehr weit verbreitete Merkmale (Funktionswörter)<br/>bekommen keine hohen Zeta-Werte <!-- .element: class="fragment" data-fragment-index="3" -->
+* Bevorzugt Merkmale von mittlerer Häufigkeit<br/>(Inhaltswörter: Interpretierbarkeit) <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
 --
@@ -189,17 +170,41 @@ Motivation: Gewünschte Effekte
 
 
 --
-## Ähnlichkeit der Varianten
-<img height="500" src="img/variants-dendrogram.png"></img>
-<br/>
-<small>Grundlage: Cluster Analyse der Zeta-Werte (500 Wörter, Ward-Verfahren)</small>
+## Distinktive Worte (Tragödie)
+<small>
 
+|rang| sd0 (Burrows)|sd2 (log2)    |
+|:--:|:------------:|:------------:|
+|1|sang | trône |
+|2|roi| romain |
+|3|seigneur | sénat|
+|4|gloire| diadème|
+|5|crime| parricide|
+|6|mort| peuple|
+|7|dieux|immoler|
+|8|prince|vengeur|
+|9|horreur|sceptre|
+|10|fureur|auguste|
+|11|ennemi|attentat
+|12|haine|tyran
+|13|trône|camp|
+|14|peuple|rome|
+|15|vertu|murs|
+
+</small>
 
 --
 ## Effekt auf Distinktivitätswerte
 <img height="500" src="img/illustration_Zeta-vs-adjZeta_extremes.png"></img>
 <br/>
 <small>Théâtre classique (Tragödie): sd0 vs. sd2</small>
+
+
+--
+## Ähnlichkeit der Varianten
+<img height="500" src="img/variants-dendrogram.png"></img>
+<br/>
+<small>Grundlage: Cluster Analyse der Zeta-Werte (500 Wörter, Ward-Verfahren)</small>
 
 
 --
@@ -230,14 +235,15 @@ Motivation: Gewünschte Effekte
     * mathematisch sehr einfach
     * gut interpretierbare Ergebnisse
 * Zeta-Varianten  <!-- .element: class="fragment" data-fragment-index="2" -->
-    * Varianten mit relativen Häufigkeiten<br/>führen zu keiner Verbesserung 
-    * sd2 (document proportions mit log-Skalierung)<br/>erhöht die Klassifikationsgüte deutlich
+    * Varianten mit relativen Häufigkeiten<br/>führen zu keiner Verbesserung
+    * sd2 (log2-Zeta) verschiebt die Wortliste in interpretierbarer Weise 
+    * sd2 erhöht die Klassifikationsgüte deutlich
 
 --
 ## Nächste Schritte
 <br/>
-* Untersuchungen zum Einfluss der Segmentlänge auf die Zeta-Werte (mit Henning Gebhard, Trier; Paper für die DH2018) <!-- .element: class="fragment" data-fragment-index="1" -->
-* Untersuchung zum Grad der Interpretierbarkeit in Abhängigkeit der Varianten (Zielkonflikt Distinktivität vs. Interpretierbarkeit?) <!-- .element: class="fragment" data-fragment-index="2" -->
+* Einfluss der Segmentlänge (mit Albin Zehe, Würzburg; Henning Gebhard, Trier) <!-- .element: class="fragment" data-fragment-index="1" -->
+* Interpretierbarkeit je nach Variante; Zielkonflikt Distinktivität vs. Interpretierbarkeit? <!-- .element: class="fragment" data-fragment-index="2" -->
 * Evaluation der Zeta-Varianten und etablierter Verfahren mit mehreren Verfahren und Textsammlungen <!-- .element: class="fragment" data-fragment-index="3" -->
 
 
